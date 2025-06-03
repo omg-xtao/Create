@@ -321,11 +321,13 @@ public class AllCreativeModeTabs {
 			for (RegistryEntry<Item> entry : Create.registrate().getAll(Registries.ITEM)) {
 				if (!CreateRegistrate.isInCreativeTab(entry, tabFilter))
 					continue;
+				try {
 				Item item = entry.get();
 				if (item instanceof BlockItem)
 					continue;
 				if (!exclusionPredicate.test(item))
 					items.add(item);
+				} catch (NullPointerException ignored) {}
 			}
 			return items;
 		}
